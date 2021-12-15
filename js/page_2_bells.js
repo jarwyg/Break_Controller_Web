@@ -4,9 +4,72 @@ function make_bells_div(data, append_to_element){
 		$('<div></div>')
 			.attr('id', 'bells_div')
 			.addClass('d-none')
+			.append(make_bells_status_radio_buttons(data))
 			.append(make_bells_weekdays_checkboxes(data))
 			//.text("bells_div")
 	)
+	
+}
+
+
+
+
+
+function make_bells_status_radio_buttons(data){
+	var div_to_return = $('<div></div>')
+		.addClass("btn-group col-12 mb-4")
+		.attr('role', 'group')
+		.append(
+			$('<input>')
+				.attr('type', 'radio')
+				.addClass('btn-check')
+				.attr('id', 'bells_status_off')
+				.attr('autocomplete', 'off')
+				.attr('name', 'bells_status_on_off')
+				.attr('checked', (data.state == "off") ? true : false)
+				.val(0)
+				.attr('onclick', 'change_on_off_status(this)')
+		)
+		.append(
+			$('<label></label>')
+				.addClass('btn btn-outline-primary')
+				.attr('for', 'bells_status_off')
+				.text("OFF")
+		)
+		.append(
+			$('<input>')
+				.attr('type', 'radio')
+				.addClass('btn-check')
+				.attr('id', 'bells_status_on')
+				.attr('autocomplete', 'off')
+				.attr('name', 'bells_status_on_off')
+				.attr('checked', (data.state == "on") ? true : false)
+				.val(1)
+				.attr('onclick', 'change_on_off_status(this)')
+		)
+		.append(
+			$('<label></label>')
+				.addClass('btn btn-outline-success')
+				.attr('for', 'bells_status_on')
+				.text("ON")
+		)
+	
+	
+	
+	
+	
+	return div_to_return;
+}
+
+
+function change_on_off_status(element){
+	$.post("", {
+		change_on_off_status: $(element).val(),		
+    },function( data, status) {
+		//console.log(data)
+		//get_data_from_main_api()
+	}, 'json');
+
 	
 }
 
@@ -80,3 +143,11 @@ function change_weekday_status(element){
 
 	
 }
+
+
+
+
+
+
+
+
