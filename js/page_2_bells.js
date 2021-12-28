@@ -6,6 +6,8 @@ function make_bells_div(data, append_to_element){
 			.addClass('d-none')
 			.append(make_bells_status_radio_buttons(data))
 			.append(make_bells_weekdays_checkboxes(data))
+			.append(make_bells_hours_edit(data, 'krotkie'))
+			.append(make_bells_hours_edit(data, 'dlugie'))
 			//.text("bells_div")
 	)
 	
@@ -144,10 +146,145 @@ function change_weekday_status(element){
 	
 }
 
+function make_bells_hours_edit(data, type){
+
+	var bells_table_tbody = $('<tbody></tbody>');
+
+	var active_bells;
+	
+	if(type == "krotkie"){
+		active_bells = data.krotkie;
+	}else if(type == "dlugie"){
+		active_bells = data.dlugie;
+	}
 
 
 
+	active_bells.forEach(function(bells_hours){
+		bells_table_tbody.append(
+			$('<tr></tr>')
+				.addClass('text-center')
+				.append(
+					$('<td></td>')
+						.append(
+							$('<input>')
+								.attr('type', 'time')
+								.val(bells_hours[0])
+								.attr('name', 'bells_hours_'+type)
+								
+						)
+				)
+				.append(
+					$('<td></td>')
+						.append(
+							$('<input>')
+								.attr('type', 'time')
+								.val(bells_hours[1])
+								.attr('name', 'bells_hours_'+type)
+								.addClass( (bells_hours[1] == undefined) ? 'd-none' : '' )
+								
+						)
+				)
+		)
+
+		console.log(bells_hours[1])
+		
+	})
+	
+	bells_table_tbody.append(
+		$('<tr></tr>')
+			.append(
+				$('<td></td>')
+					.attr('colspan', '2')
+					.addClass('text-center')
+					.append(
+						$('<button></button>')
+							.text('+')
+							.addClass('btn btn-info col-12')
+							.attr('hours_type', type)
+							.attr('onclick', 'create_new_hour(this)')
+					)
+			)
+	)
+
+	
+	bells_table_tbody.append(
+		$('<tr></tr>')
+			.append(
+				$('<td></td>')
+					.attr('colspan', '2')
+					.addClass('text-center')
+					.append(
+						$('<button></button>')
+							.text('Save')
+							.addClass('btn btn-success col-12')
+							.attr('hours_type', type)
+							.attr('onclick', 'save_bells_hours(this)')
+					)
+			)
+	)
+	
+	var div_to_return = $('<div></div>')
+			.addClass("table-responsive")
+			.append(
+				$('<table></table>')
+					.addClass('table table-bordered table-hover table-stripped ')
+					.append(
+						$('<thead></thead>')
+							.append(
+								$('<tr></tr>')
+									.addClass('text-center')
+									.append(
+										$('<th></th>')
+											.attr('colspan', '2')
+											.text('Godziny dzwonków dla lekcje '+((type == "dlugie") ? "długie" : "krótkie"))
+									)
+									
+							
+							)
+
+							
+					)
+					.append(bells_table_tbody)
+			)
+		
+	
+	
+	
+	return div_to_return;
+
+
+}
+
+
+function create_new_hour(element){
+	$(element).replaceWith(
+		$('<input>')
+			.attr('type', 'time')
+			.attr('name', 'bells_hours_'+$(element).attr("hours_type"))	
+	);
+}
+
+
+function save_bells_hours(element){
+	var hours_type = $(element).attr('hours_type')
+	var hours_array = [];
+	
+	$("input[name='bells_hours_"+hours_type+"']").each( function(index){
+		if( ($(this).val() != "") && $(this).val() != undefined ){
+			hours_array.push( $(this).val() )
+		}
+	} )
 
 
 
+	$.post("", {
+		save_new_bells_hours: hours_array,
+		type: hours_type,
+		
+    },function( data, status) {
+		console.log(data)
+		get_data_from_main_api()
+	}, 'json');
 
+}
