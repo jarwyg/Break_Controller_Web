@@ -4,6 +4,7 @@ require_once('api/get_data_from_files.php');
 require_once('api/change_weekday_state.php');
 require_once('api/change_on_off_status.php');
 require_once('api/save_new_bells_hours.php');
+require_once('api/change_bells_length_type.php');
 ?>
 
 <!doctype html>
