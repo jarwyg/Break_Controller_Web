@@ -283,7 +283,6 @@ function make_bells_hours_edit(data, type){
 				)
 		)
 
-		console.log(bells_hours[1])
 		
 	})
 	
