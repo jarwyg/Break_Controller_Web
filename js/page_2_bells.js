@@ -6,6 +6,7 @@ function make_bells_div(data, append_to_element){
 			.addClass('d-none')
 			.append(make_bells_status_radio_buttons(data))
 			.append(make_bells_weekdays_checkboxes(data))
+			.append(make_bells_length_type_selector(data))
 			.append(make_bells_hours_edit(data, 'krotkie'))
 			.append(make_bells_hours_edit(data, 'dlugie'))
 			//.text("bells_div")
@@ -145,6 +146,68 @@ function change_weekday_status(element){
 
 	
 }
+//******************************************************
+
+
+function make_bells_length_type_selector(data){
+
+	var div_to_return = $('<div></div>')
+		.addClass("btn-group col-12 mb-4")
+		.attr('role', 'group')
+		.append(
+			$('<input>')
+				.attr('type', 'radio')
+				.addClass('btn-check')
+				.attr('id', 'bells_length_type_short')
+				.attr('autocomplete', 'off')
+				.attr('name', 'bells_length_type_short_long')
+				.attr('checked', (data.przerwy == "dlugie") ? true : false)
+				.val(0)
+				.attr('onclick', 'change_bells_length_type(this)')
+		)
+		.append(
+			$('<label></label>')
+				.addClass('btn btn-outline-primary')
+				.attr('for', 'bells_length_type_short')
+				.text("Krótkie")
+		)
+		.append(
+			$('<input>')
+				.attr('type', 'radio')
+				.addClass('btn-check')
+				.attr('id', 'bells_length_type_long')
+				.attr('autocomplete', 'off')
+				.attr('name', 'bells_length_type_short_long')
+				.attr('checked', (data.przerwy == "krotkie") ? true : false)
+				.val(1)
+				.attr('onclick', 'change_bells_length_type(this)')
+		)
+		.append(
+			$('<label></label>')
+				.addClass('btn btn-outline-success')
+				.attr('for', 'bells_length_type_long')
+				.text("Długie")
+		)
+	
+	
+	
+	
+	
+	return div_to_return;
+
+}
+
+function change_bells_length_type(element){
+
+	$.post("", {
+		change_bells_length_type: $(element).val(),		
+    },function( data, status) {
+		//console.log(data)
+		//get_data_from_main_api()
+	}, 'json');
+
+}
+//******************************************************
 
 function make_bells_hours_edit(data, type){
 
