@@ -7,6 +7,7 @@ function make_bells_div(data, append_to_element){
 			.append(make_bells_status_radio_buttons(data))
 			.append(make_bells_weekdays_checkboxes(data))
 			.append(make_bells_length_type_selector(data))
+			.append(make_range_for_volume(data))
 			.append(make_bells_hours_edit(data, 'krotkie'))
 			.append(make_bells_hours_edit(data, 'dlugie'))
 			//.text("bells_div")
@@ -208,6 +209,38 @@ function change_bells_length_type(element){
 
 }
 //******************************************************
+
+
+function make_range_for_volume(data){
+	var div_to_return = $('<div></div>')
+		.append(
+			$('<input>')
+				.attr('type', 'range')
+				.addClass('form-range')
+				.attr('min', '0')
+				.attr('max', '100')
+				.attr('step', '5')
+				.val(data.volume)
+				.attr('onchange', 'change_bells_volume(this)')
+		)
+		
+
+	return div_to_return;
+
+}
+function change_bells_volume(element){
+	$.post("", {
+		change_bells_volume: $(element).val(),		
+    },function( data, status) {
+		//console.log(data)
+		//get_data_from_main_api()
+	}, 'json');
+
+}
+
+
+//******************************************************
+
 
 function make_bells_hours_edit(data, type){
 
