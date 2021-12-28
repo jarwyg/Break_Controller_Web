@@ -90,6 +90,13 @@ require_once('api/change_on_off_status.php');
           <svg class="bi" width="24" height="24" role="img" aria-label="Narzędzia"><use xlink:href="bootstrap-icons.svg#tools"/></svg>
         </a>
       </li>
+
+      
+      <li>
+        <a class="nav-link py-3 border-bottom toolbar_button" title="Github" data-bs-toggle="tooltip" data-bs-placement="right" target="_blank" href="https://github.com/jarwyg/Break_Controller_Web">
+          <svg class="bi" width="24" height="24" role="img" aria-label="Github"><use xlink:href="bootstrap-icons.svg#github"/></svg>
+        </a>
+      </li>
      
     </ul>
     
