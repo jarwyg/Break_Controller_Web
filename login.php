@@ -10,10 +10,6 @@ if (isset($_GET['logout'])){
 }
 
 if( isset($_POST["password"]) ){
-error_log(hash("sha256", $_POST["password"]));
-error_log($password_hash);
-error_log($_POST["password"]);
-	
 	if(hash("sha256", $_POST["password"]."\n") == $password_hash){
 
 		$_SESSION["login"] = true;
