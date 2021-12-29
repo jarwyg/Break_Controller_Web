@@ -37,11 +37,13 @@ function config_file_to_array($file_name){
 	return $data_from_file_array;
 }
 
-function radio_file_to_array($file_name){
+function radio_file_to_array($file_name, $selected_radio){
 	
 	$file_handle = fopen($file_name,'r');
 	
 	$data_from_file_array = array();
+
+	$radio_number = 1;
 	
 	while(!feof($file_handle)){
 		$file_line = trim(fgets($file_handle));
@@ -52,6 +54,13 @@ function radio_file_to_array($file_name){
 			$radio_obj = new stdClass();
 			$radio_obj->radio_name = $file_line_array[0];
 			$radio_obj->radio_url = $file_line_array[1];
+			$radio_obj->radio_number = $radio_number++;
+
+			if($selected_radio == $radio_obj->radio_number){
+				$radio_obj->radio_selected = true;
+			}else{
+				$radio_obj->radio_selected = false;
+			}
 			
 			array_push($data_from_file_array, $radio_obj);
 			
@@ -189,7 +198,7 @@ if(isset($_GET["get_data_from_files"])){
 	$out_object->music_file = $music_file_array;
 	
 	
-	$radio_file_array = radio_file_to_array($radio_config_file_path);
+	$radio_file_array = radio_file_to_array($radio_config_file_path, $out_object->radio);
 	$out_object->radio_file = $radio_file_array;
 
 	
