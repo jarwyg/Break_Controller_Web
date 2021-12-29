@@ -192,7 +192,12 @@ if(isset($_GET["get_data_from_files"])){
 	$radio_file_array = radio_file_to_array($radio_config_file_path);
 	$out_object->radio_file = $radio_file_array;
 
-
+	
+	$out_object->log_files = array();
+	$log_files = glob("{$log_folder_path}*.log");
+	foreach($log_files as $log_files_val){
+		array_push($out_object->log_files, basename($log_files_val) );
+	}
 
 	header("Content-Type: application/json");
 	//echo json_encode($config_file_array);
