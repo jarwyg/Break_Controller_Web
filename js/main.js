@@ -73,3 +73,18 @@ $( document ).ready(function() {
 
 
 
+function show_alert(message){
+	$("#alert1").alert().removeClass("d-none")
+	const date_now = new Date();
+	var date_now_string = date_now.getHours()+':'+date_now.getMinutes()+':'+date_now.getSeconds();
+	$("#alert_message").text(date_now_string+' '+message)
+
+	//$("#main_content_id").css('padding-top', '50px')
+	setTimeout(hide_alert, 1000);
+}
+
+function hide_alert(){
+	$("#alert1").addClass('d-none')
+	$("#alert_message").text('')
+	//$("#main_content_id").css('padding-top', '0px')
+}

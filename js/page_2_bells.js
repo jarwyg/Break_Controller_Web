@@ -70,7 +70,9 @@ function change_on_off_status(element){
 	$.post("", {
 		change_on_off_status: $(element).val(),		
     },function( data, status) {
-		//console.log(data)
+		if(data.status == "OK"){
+			show_alert("Zapisano")
+		}
 		//get_data_from_main_api()
 	}, 'json');
 
@@ -141,7 +143,9 @@ function change_weekday_status(element){
 		value: $(element).is(':checked'),
 		
     },function( data, status) {
-		//console.log(data)
+		if(data.status == "OK"){
+			show_alert("Zapisano")
+		}
 		//get_data_from_main_api()
 	}, 'json');
 
@@ -162,7 +166,7 @@ function make_bells_length_type_selector(data){
 				.attr('id', 'bells_length_type_short')
 				.attr('autocomplete', 'off')
 				.attr('name', 'bells_length_type_short_long')
-				.attr('checked', (data.przerwy == "dlugie") ? true : false)
+				.attr('checked', (data.przerwy == "krotkie") ? true : false)
 				.val(0)
 				.attr('onclick', 'change_bells_length_type(this)')
 		)
@@ -179,7 +183,7 @@ function make_bells_length_type_selector(data){
 				.attr('id', 'bells_length_type_long')
 				.attr('autocomplete', 'off')
 				.attr('name', 'bells_length_type_short_long')
-				.attr('checked', (data.przerwy == "krotkie") ? true : false)
+				.attr('checked', (data.przerwy == "dlugie") ? true : false)
 				.val(1)
 				.attr('onclick', 'change_bells_length_type(this)')
 		)
@@ -203,7 +207,9 @@ function change_bells_length_type(element){
 	$.post("", {
 		change_bells_length_type: $(element).val(),		
     },function( data, status) {
-		//console.log(data)
+		if(data.status == "OK"){
+			show_alert("Zapisano")
+		}
 		//get_data_from_main_api()
 	}, 'json');
 
@@ -232,7 +238,9 @@ function change_bells_volume(element){
 	$.post("", {
 		change_bells_volume: $(element).val(),		
     },function( data, status) {
-		//console.log(data)
+		if(data.status == "OK"){
+			show_alert("Zapisano")
+		}
 		//get_data_from_main_api()
 	}, 'json');
 
@@ -378,7 +386,10 @@ function save_bells_hours(element){
 		type: hours_type,
 		
     },function( data, status) {
-		console.log(data)
+		if(data.status == "OK"){
+			show_alert("Zapisano")
+		}
+		
 		get_data_from_main_api()
 	}, 'json');
 

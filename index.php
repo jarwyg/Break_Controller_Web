@@ -123,13 +123,27 @@ require_once('api/change_bells_volume.php');
 	<div id="main_content_id" class="m-3" style="width: 100%">
 	
 	</div>
+
+
+
+
+
+	
 </main>
 
-
-
-
-
-
+	<div class="" style="position: absolute; padding-left: 72px; top: 0px; right: 0px; width: 100%; z-index: 100;">
+		<div class="alert alert-success alert-dismissible fade show d-none" role="alert" id="alert1" style="padding: 0px;">
+			<div class="d-flex justify-content-between">
+				<div class="p-2" id="alert_message">Zapisano</div>
+				<div class="p-2">
+				  <button type="button" class="btn btn-sm btn-light" onclick="hide_alert()">
+					<span aria-hidden="true">&times;</span>
+				  </button>
+				</div>
+			</div>
+		</div>
+	</div>
+	
     <script src="js/bootstrap.bundle.min.js"></script>
     <script src="js/jquery-3.6.0.min.js"></script>
 
