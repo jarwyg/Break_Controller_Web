@@ -4,8 +4,9 @@ function make_music_div(data, append_to_element){
 		$('<div></div>')
 			.attr('id', 'music_div')
 			.addClass('d-none')
+			.append( make_title_card("Muzyka") )
 			//.append(make_bells_weekdays_checkboxes(data))
-			.text("music_div")
+			.append("music_div")
 	)
 	
 }

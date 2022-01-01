@@ -4,6 +4,7 @@ function make_radio_div(data, append_to_element){
 		$('<div></div>')
 			.attr('id', 'radio_div')
 			.addClass('d-none')
+			.append( make_title_card("Radio") )
 			.append(make_radio_select(data))
 	)
 	

@@ -88,3 +88,16 @@ function hide_alert(){
 	$("#alert_message").text('')
 	//$("#main_content_id").css('padding-top', '0px')
 }
+
+
+function make_title_card(name){
+	return $('<div></div>')
+		.addClass('card mb-2')
+		.append(
+			$('<div></div>')
+				.addClass('card-header text-center')
+				.text(name)
+		)
+
+}
+

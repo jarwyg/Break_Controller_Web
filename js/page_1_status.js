@@ -4,6 +4,7 @@ function make_status_div(data, append_to_element){
 		$('<div></div>')
 			.attr('id', 'status_div')
 			.addClass('d-none')
+			.append( make_title_card("Status") )
 			.append(make_status_service(data))
 			.append(make_status_bell_hours(data))
 			.append(make_status_bells_list(data))

@@ -4,8 +4,9 @@ function make_tools_div(data, append_to_element){
 		$('<div></div>')
 			.attr('id', 'tools_div')
 			.addClass('d-none')
+			.append( make_title_card("Narzędzia") )
 			//.append(make_bells_weekdays_checkboxes(data))
-			.text("tools_div")
+			.append("tools_div")
 	)
 	
 }

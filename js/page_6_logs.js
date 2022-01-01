@@ -4,6 +4,7 @@ function make_logs_div(data, append_to_element){
 		$('<div></div>')
 			.attr('id', 'logs_div')
 			.addClass('d-none')
+			.append( make_title_card("Log-i") )
 			.append(make_logs_select(data))
 			
 	)

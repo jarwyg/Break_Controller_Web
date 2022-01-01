@@ -4,6 +4,7 @@ function make_bells_div(data, append_to_element){
 		$('<div></div>')
 			.attr('id', 'bells_div')
 			.addClass('d-none')
+			.append( make_title_card("Dzwonki") )
 			.append(make_bells_status_radio_buttons(data))
 			.append(make_bells_weekdays_checkboxes(data))
 			.append(make_bells_length_type_selector(data))
@@ -219,16 +220,27 @@ function change_bells_length_type(element){
 
 function make_range_for_volume(data){
 	var div_to_return = $('<div></div>')
+		.addClass('card mb-4')
 		.append(
-			$('<input>')
-				.attr('type', 'range')
-				.addClass('form-range')
-				.attr('min', '0')
-				.attr('max', '100')
-				.attr('step', '5')
-				.val(data.volume)
-				.attr('onchange', 'change_bells_volume(this)')
+			$('<div></div>')
+				.addClass('card-header')
+				.text('Głośność')
 		)
+		.append(
+			$('<div></div>')
+				.addClass('card-body')
+				.append(
+					$('<input>')
+						.attr('type', 'range')
+						.addClass('form-range')
+						.attr('min', '0')
+						.attr('max', '100')
+						.attr('step', '5')
+						.val(data.volume)
+						.attr('onchange', 'change_bells_volume(this)')
+				)
+		)
+		
 		
 
 	return div_to_return;
