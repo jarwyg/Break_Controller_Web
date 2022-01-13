@@ -1,6 +1,8 @@
 <?php
 session_start();
 
+require_once('api/user_is_logged.php');
+
 if( !isset($_SESSION['login']) ){
 	header("Location: login.php");
 	die();

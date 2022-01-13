@@ -69,9 +69,20 @@ $( document ).ready(function() {
     
     get_data_from_main_api();
     
+	window.addEventListener('focus', focus);
 });
 
 
+
+function focus() {
+	$.post("", {
+		user_is_logged: "",		
+    },function( data, status) {
+		if(data.logged == false){
+			window.location.replace("login.php");
+		}
+	}, 'json');
+}
 
 function show_alert(message){
 	$("#alert1").alert().removeClass("d-none")
