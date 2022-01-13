@@ -20,85 +20,90 @@ function save_value_to_config_file($file_name, $value_name, $value){
 //take config file and convert into array
 function config_file_to_array($file_name){
 
-	$file_handle = fopen($file_name,'r');
-	
 	$data_from_file_array = array();
-	
-	while(!feof($file_handle)){
-		$file_line = trim(fgets($file_handle));
+
+	if(file_exists($file_name)){
+
+		$file_handle = fopen($file_name,'r');
 		
-		if( !empty($file_line) ){
-			$file_line_array = explode('=',$file_line);
-			$data_from_file_array[$file_line_array[0]] = $file_line_array[1];
+		
+		while(!feof($file_handle)){
+			$file_line = trim(fgets($file_handle));
+			
+			if( !empty($file_line) ){
+				$file_line_array = explode('=',$file_line);
+				$data_from_file_array[$file_line_array[0]] = $file_line_array[1];
+			}
 		}
+		fclose($file_handle);
+
 	}
-	fclose($file_handle);
-	
 	return $data_from_file_array;
 }
 
 function radio_file_to_array($file_name, $selected_radio){
-	
-	$file_handle = fopen($file_name,'r');
-	
 	$data_from_file_array = array();
 
-	$radio_number = 1;
-	
-	while(!feof($file_handle)){
-		$file_line = trim(fgets($file_handle));
+	if(file_exists($file_name)){
+		$file_handle = fopen($file_name,'r');
 		
-		
-		if( !empty($file_line) ){
-			$file_line_array = explode('=',$file_line);
-			$radio_obj = new stdClass();
-			$radio_obj->radio_name = $file_line_array[0];
-			$radio_obj->radio_url = $file_line_array[1];
-			$radio_obj->radio_number = $radio_number++;
 
-			if($selected_radio == $radio_obj->radio_number){
-				$radio_obj->radio_selected = true;
-			}else{
-				$radio_obj->radio_selected = false;
+		$radio_number = 1;
+		
+		while(!feof($file_handle)){
+			$file_line = trim(fgets($file_handle));
+			
+			
+			if( !empty($file_line) ){
+				$file_line_array = explode('=',$file_line);
+				$radio_obj = new stdClass();
+				$radio_obj->radio_name = $file_line_array[0];
+				$radio_obj->radio_url = $file_line_array[1];
+				$radio_obj->radio_number = $radio_number++;
+
+				if($selected_radio == $radio_obj->radio_number){
+					$radio_obj->radio_selected = true;
+				}else{
+					$radio_obj->radio_selected = false;
+				}
+				
+				array_push($data_from_file_array, $radio_obj);
+				
 			}
-			
-			array_push($data_from_file_array, $radio_obj);
-			
 		}
+		fclose($file_handle);
 	}
-	fclose($file_handle);
-	
 	return $data_from_file_array;
 	
 }
 
 function music_file_to_array($file_name){
-	
-	$file_handle = fopen($file_name,'r');
-	
 	$data_from_file_array = array();
+
+	if(file_exists($file_name)){
+		$file_handle = fopen($file_name,'r');
 	
-	while(!feof($file_handle)){
-		$file_line = trim(fgets($file_handle));
-		
-		
-		if( !empty($file_line) ){
-			$file_line_array = explode('=',$file_line);
-			$music_obj = new stdClass();
+		while(!feof($file_handle)){
+			$file_line = trim(fgets($file_handle));
 			
-			$music_godz = explode(":", $file_line_array[0]);
+			
+			if( !empty($file_line) ){
+				$file_line_array = explode('=',$file_line);
+				$music_obj = new stdClass();
 				
-			$music_obj->music_start = $music_godz[0].":".$music_godz[1];
-			$music_obj->music_stop = $music_godz[2].":".$music_godz[3];
-		
-			$music_obj->music_name = $file_line_array[1];
+				$music_godz = explode(":", $file_line_array[0]);
+					
+				$music_obj->music_start = $music_godz[0].":".$music_godz[1];
+				$music_obj->music_stop = $music_godz[2].":".$music_godz[3];
 			
-			array_push($data_from_file_array, $music_obj);
-			
+				$music_obj->music_name = $file_line_array[1];
+				
+				array_push($data_from_file_array, $music_obj);
+				
+			}
 		}
+		fclose($file_handle);
 	}
-	fclose($file_handle);
-	
 	return $data_from_file_array;
 	
 }
