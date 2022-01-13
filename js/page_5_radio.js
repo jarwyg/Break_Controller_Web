@@ -6,6 +6,7 @@ function make_radio_div(data, append_to_element){
 			.addClass('d-none')
 			.append( make_title_card("Radio") )
 			.append(make_radio_select(data))
+			.append(make_range_for_music_volume(data))
 	)
 	
 }
@@ -30,6 +31,7 @@ function make_radio_select(data){
 
 	var div_to_return = $('<div></div>')
 		.append(select_element)
+		.addClass('mb-2')
 
 
 	return div_to_return;
@@ -48,4 +50,45 @@ function change_radio(element){
 	}, 'json');
 
 	
+}
+
+
+function make_range_for_music_volume(data){
+	var div_to_return = $('<div></div>')
+		.addClass('card mb-4')
+		.append(
+			$('<div></div>')
+				.addClass('card-header')
+				.text('Głośność radia/muzyki')
+		)
+		.append(
+			$('<div></div>')
+				.addClass('card-body')
+				.append(
+					$('<input>')
+						.attr('type', 'range')
+						.addClass('form-range')
+						.attr('min', '0')
+						.attr('max', '100')
+						.attr('step', '5')
+						.val(data.volume_music)
+						.attr('onchange', 'change_music_volume(this)')
+				)
+		)
+		
+		
+
+	return div_to_return;
+
+}
+function change_music_volume(element){
+	$.post("", {
+		change_music_volume: $(element).val(),		
+    },function( data, status) {
+		if(data.status == "OK"){
+			show_alert("Zapisano")
+		}
+		//get_data_from_main_api()
+	}, 'json');
+
 }
